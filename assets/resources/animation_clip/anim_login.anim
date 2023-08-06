@@ -1,0 +1,154 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "anim_login",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.3333333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "logo": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": 0,
+                "z": 1
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.2,
+                "y": 1.2,
+                "z": 1
+              }
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              }
+            }
+          ],
+          "active": [
+            {
+              "frame": 0,
+              "value": true
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": true
+            }
+          ],
+          "position": []
+        }
+      },
+      "about_botton": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 1,
+              "value": true
+            }
+          ],
+          "position": [
+            {
+              "frame": 1,
+              "value": [
+                -1.923,
+                4.280000000000001,
+                0
+              ]
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": [
+                -1.923,
+                -87.487,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "start_button": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": true
+            }
+          ],
+          "position": [
+            {
+              "frame": 0.6666666666666666,
+              "value": [
+                0,
+                161.47,
+                0
+              ]
+            },
+            {
+              "frame": 0.9833333333333333,
+              "value": [
+                0,
+                5.21999999999997,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "about_botton/l_chain": {
+        "props": {
+          "active": [
+            {
+              "frame": 0.9833333333333333,
+              "value": false
+            },
+            {
+              "frame": 1.2,
+              "value": true
+            }
+          ]
+        }
+      },
+      "about_botton/r_chain": {
+        "props": {
+          "active": [
+            {
+              "frame": 0.9833333333333333,
+              "value": false
+            },
+            {
+              "frame": 1.2,
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    "props": {
+      "position": []
+    }
+  },
+  "events": []
+}

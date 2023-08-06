@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "0cf6b47b-69cf-4f62-93b2-786725e2f37c",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 126,
+  "height": 90,
+  "platformSettings": {},
+  "subMetas": {
+    "encyclopedia_down": {
+      "ver": "1.0.6",
+      "uuid": "808832d3-553f-4d77-9e3d-87ae2f5b8892",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "0cf6b47b-69cf-4f62-93b2-786725e2f37c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 1.5,
+      "trimX": 8,
+      "trimY": 2,
+      "width": 108,
+      "height": 83,
+      "rawWidth": 126,
+      "rawHeight": 90,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
