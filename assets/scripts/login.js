@@ -73,8 +73,8 @@ cc.Class({
             loding_door.disable_click.active=false;
            
         }, this);
-
-        this.player1.string=ugame.user_data[0].start_num+"/"+ugame.user_data[0].start_total;
+        let num=ugame.get_star_num();
+        this.player1.string=num+"/"+ugame.user_data[ugame.current_user].start_total;
 
         this.show_local_userdata(this.player1,0);
         this.show_local_userdata(this.player2,1);
