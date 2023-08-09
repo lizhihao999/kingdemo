@@ -34,6 +34,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.upgrade_btn=cc.find("Canvas/upgrade");
         this.lab=cc.find("Canvas/score_back/lab").getComponent(cc.Label);
         // cc.log("lab",this.lab);
         let num=ugame.get_star_num();
@@ -61,6 +62,11 @@ cc.Class({
        
     
         
+
+    },
+
+    click_upgrade(){
+        this.upgrade_btn.active=true;
 
     },
 
