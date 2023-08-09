@@ -40,14 +40,14 @@ let ugame={
    
     current_user:0,//现在的用户
 
-    tower_skill_upgraded_config:{
-        arrow_tower:[0,1,1,2,2,3],//弓箭塔
-        infantry_tower:[0,1,1,2,2,3],//步兵塔
-        warlock_tower:[0,1,1,2,2,3],//术士塔
-        artillery_tower:[0,1,1,3,3,3],//火炮塔
+    skill_upgrade_config:{
+        0:[1,1,2,2,3],//弓箭塔
+        1:[1,1,2,2,3],//步兵塔
+        2:[1,1,2,2,3],//术士塔
+        3:[1,1,3,3,3],//火炮塔
 
-        skill_bom:[0,1,1,2,2,3],//炸弹技能
-        skill_infantry:[0,2,3,3,3,4]//步兵技能
+        4:[1,1,2,2,3],//炸弹技能
+        5:[2,3,3,3,4]//步兵技能
 
 
     },
@@ -85,6 +85,7 @@ function read_local_data(){//读取本地数据(读档)
         ugame.user_data[1].new_level=1;
         ugame.user_data[2].new_level=1;
         ugame.user_data[0].start_num=ugame.get_star_num();
+        ugame.user_data[0].skill_info=[1,2,3,4,5,0],
         cc.log("**************",ugame.start_num);
         ugame.save_data_local();
         cc.log( ugame.user_data);
@@ -98,6 +99,7 @@ function read_local_data(){//读取本地数据(读档)
             chip:2000,
             blood:20,
             lever_info_start:[1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3],//19
+            skill_info:[0,0,0,0,0,0],
             start_num:0,
             start_total:77,
             new_level:1,
@@ -107,6 +109,7 @@ function read_local_data(){//读取本地数据(读档)
             chip:2000,
             blood:20,
             lever_info_start:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//19
+            skill_info:[0,0,0,0,0,0],
             start_num:0,
             start_total:77,
             new_level:1,
@@ -116,6 +119,7 @@ function read_local_data(){//读取本地数据(读档)
             chip:2000,
             blood:20,
             lever_info_start:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//19
+            skill_info:[0,0,0,0,0,0],
             start_num:0,
             start_total:77,
             new_level:1,

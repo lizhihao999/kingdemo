@@ -34,7 +34,16 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.upgrade_btn=cc.find("Canvas/upgrade");
+        let loding_door=cc.find("Canvas/loding_door").getComponent("lodingDoor");
+        this.upgrade_anim=cc.find("Canvas/upgrade_anim").getComponent(cc.Animation);
+        this.upgrade_anim.on('play',()=>{
+            loding_door.disable_click.active=true;
+           
+        }, this);
+        this.upgrade_anim.on('finished',()=>{
+            loding_door.disable_click.active=false;
+           
+        }, this);
         this.lab=cc.find("Canvas/score_back/lab").getComponent(cc.Label);
         // cc.log("lab",this.lab);
         let num=ugame.get_star_num();
@@ -66,7 +75,10 @@ cc.Class({
     },
 
     click_upgrade(){
-        this.upgrade_btn.active=true;
+        // this.upgrade_btn.active=true;
+        let state = this.upgrade_anim.play("anim_upgrade");
+        state.wrapMode = cc.WrapMode.Normal;
+
 
     },
 
