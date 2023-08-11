@@ -33,6 +33,10 @@ cc.Class({
         // let skill=this.node.getChildByName("skill_1");
         // cc.log(skill);
         // cc.log("childreneount",this.node.childrenCount,"skill_"+1);
+        // this.r_chain=this.node.getChildByName("r_chain");
+        // this.r_chain.zIndex=-1;
+        // this.r_chain=this.node.getChildByName("l_chain");
+        // this.r_chain.zIndex=-2;
         let loding_door=cc.find("Canvas/loding_door").getComponent("lodingDoor");
         this.anim=this.node.getComponent(cc.Animation);
         this.anim.on('play',()=>{

@@ -88,7 +88,7 @@ function read_local_data(){//读取本地数据(读档)
         ugame.user_data[0].skill_info=[1,2,3,4,5,0],
         cc.log("**************",ugame.start_num);
         ugame.save_data_local();
-        cc.log( ugame.user_data);
+        cc.log("read_data");
         
         return;
     }
