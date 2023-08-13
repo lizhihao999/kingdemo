@@ -56,18 +56,19 @@ cc.Class({
             this.sprite = this.addComponent(cc.Sprite);
         }
 
-        if(this.play_onload){//加载时播放
-            if(this.loop){//是否循环播放
-                this.init_loop_play();
-            }else{
-              this.init_once_play();
-            }
-        }
+        // if(this.play_onload){//加载时播放
+        //     if(this.loop){//是否循环播放
+        //         this.play_loop();
+        //     }else{
+        //       this.play_once();
+        //     }
+        // }
         
 
     },
-    init_loop_play(end_func){//循环播放一些参数的状态
+    play_loop(end_func){//循环播放一些参数的状态
         if (this.sprite_frames.length <= 0) {
+            cc.log(this.sprite_frames);
             cc.log("帧动画资源为空");
             return;
         }
@@ -79,7 +80,7 @@ cc.Class({
 
 
     },
-    init_once_play(end_func){
+    play_once(end_func){
         if (this.sprite_frames.length <= 0) {
             cc.log("帧动画资源为空");
             return;
@@ -129,9 +130,9 @@ cc.Class({
             }
 
     },
-    end_func(){
-        cc.log("播放完成");
+    // end_func(){
+    //     cc.log("播放完成");
        
-    },
+    // },
    
 });
