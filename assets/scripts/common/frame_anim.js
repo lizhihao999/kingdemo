@@ -51,9 +51,9 @@ cc.Class({
         this.is_playing=false;
 
         // 获得了精灵组件
-        this.sprite = this.getComponent(cc.Sprite);
+        this.sprite = this.node.getComponent(cc.Sprite);
         if (!this.sprite) {
-            this.sprite = this.addComponent(cc.Sprite);
+            this.sprite = this.node.addComponent(cc.Sprite);
         }
 
         // if(this.play_onload){//加载时播放
@@ -114,17 +114,18 @@ cc.Class({
                     this.play_time-=this.sprite_frames.length*this.durtion;//重置播放时长
                     index=0;
                 }
-                // cc.log(index);
+                
                 this.sprite.spriteFrame=this.sprite_frames[index];
             }
             else{//非循环播放
-                if(this.sprite_frames.length<=index){//播放完成 播放状态关闭 重置播放时长
+                if(this.sprite_frames.length<=index){//播放完成 播放状态关闭 重置播放时长 9
                     if(this.end_func){//执行回调
                         this.end_func();
                     }
                     this.is_playing=false;
                     return;//退出
                 }
+                // cc.log(index);
                 this.sprite.spriteFrame=this.sprite_frames[index];
                 
             }

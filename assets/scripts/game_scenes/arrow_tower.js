@@ -71,6 +71,10 @@ cc.Class({
         },
         arrow_grade:1,//弓箭塔等级
         anim_durtion:0.1,
+        bullet:{
+            type:cc.Prefab,
+            default:null,
+        },
     },
 
     _set_spf(node,state_){//节点 状态
@@ -130,16 +134,44 @@ cc.Class({
         });
     },
 
-    shoot_at(state_){//先左后右
+    shoot_at(dst_wpos){//交叉攻击
+        
+         //生成预制体子弹
+         let node=cc.instantiate(this.bullet);
+         let bullet_root=this.node.getChildByName("bullet_root");
+         bullet_root.addChild(node);
 
         switch (this._play_cur) {
             case play_cur.lsh:
+                let start_wpos=this.lsh.convertToWorldSpaceAR(cc.v2(0,0));
+                dst_wpos=cc.v2(start_wpos.x+dst_wpos.x,start_wpos.y+dst_wpos.y);
+
+                
+                //射箭动画
+                let state_=(start_wpos.y<dst_wpos.y)?state.up:state.down;
                 this._shoot_anim(this.lsh,state_);
                 this._play_cur=play_cur.rsh;
+
+                //发射弓箭
+                let node_com=node.getComponent("bullet_arrow");
+                node_com.shoot_at(start_wpos,dst_wpos);
                 break;
             case play_cur.rsh:
+
+                start_wpos=this.rsh.convertToWorldSpaceAR(cc.v2(0,0));
+                dst_wpos=cc.v2(start_wpos.x+dst_wpos.x,start_wpos.y+dst_wpos.y);
+
+                
+                //射箭动画
+                state_=(start_wpos.y<dst_wpos.y)?state.up:state.down;
                 this._shoot_anim(this.rsh,state_);
                 this._play_cur=play_cur.lsh;
+               
+                //发射弓箭
+                node_com=node.getComponent("bullet_arrow");
+                node_com.shoot_at(start_wpos,dst_wpos);
+
+               
                 break;
             default:
                 break;
@@ -158,11 +190,6 @@ cc.Class({
         this.play_time=0;
 
         this.set_arrow_grade(state.down);
-
-        // this.shoot_at(state.down);
-
-
-        
     },
 
     start () {
@@ -176,7 +203,12 @@ cc.Class({
         }
         this.play_time=0;
 
-        this.shoot_at(state.down);
+        //测试 目标为半径50圆上的随机一个点
+        let r=50;
+        let degree=2*Math.PI*Math.random();
+        let dst_wpos=cc.v2(r*Math.cos(degree),r*Math.sin(degree));
+        //
+        this.shoot_at(dst_wpos);
 
     },
 });

@@ -1,0 +1,42 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "ttt",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.06666666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            0,
+            0
+          ],
+          "motionPath": [
+            [
+              86.1,
+              -39.4,
+              3.1,
+              -1.8,
+              158.5,
+              21.6
+            ]
+          ]
+        },
+        {
+          "frame": 0.06666666666666667,
+          "value": [
+            160.6,
+            23.2
+          ],
+          "motionPath": []
+        }
+      ]
+    }
+  },
+  "events": []
+}
