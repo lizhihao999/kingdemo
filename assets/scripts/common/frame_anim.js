@@ -63,6 +63,10 @@ cc.Class({
         //       this.play_once();
         //     }
         // }
+
+        this.cur_frame_index=0;//当前关键帧索引
+        this.is_frame_events=[];//是否含有帧事件
+        this.frame_events=[];//帧事件数组
         
 
     },
@@ -85,7 +89,7 @@ cc.Class({
             cc.log("帧动画资源为空");
             return;
         }
-
+        this.is_frame_events.length=this.sprite_frames.length;
 
         this.is_playing=true;//正在播放
         this.play_time=0;//播放时长
@@ -94,6 +98,13 @@ cc.Class({
         this.loop=false;
 
 
+    },
+
+    // _set_is
+
+    set_frame_events(frame_event,index){//帧事件数组 0开始
+        this.frame_events[index-1]=(frame_event);
+        this.is_frame_events[index-1]=1;
     },
     start () {
     },
@@ -116,6 +127,13 @@ cc.Class({
                 }
                 
                 this.sprite.spriteFrame=this.sprite_frames[index];
+
+                this.cur_frame_index=index;
+                if(this.is_frame_events[this.cur_frame_index]===1){//存在帧事件
+                    this.fun=this.frame_events[this.cur_frame_index];
+                    this.fun();
+                    this.is_frame_events[this.cur_frame_index]=0;
+                }
             }
             else{//非循环播放
                 if(this.sprite_frames.length<=index){//播放完成 播放状态关闭 重置播放时长 9
@@ -127,6 +145,13 @@ cc.Class({
                 }
                 // cc.log(index);
                 this.sprite.spriteFrame=this.sprite_frames[index];
+
+                this.cur_frame_index=index;
+                if(this.is_frame_events[this.cur_frame_index]===1){//存在帧事件
+                    this.fun=this.frame_events[this.cur_frame_index];
+                    this.fun();
+                    this.is_frame_events[this.cur_frame_index]=0;
+                }
                 
             }
 

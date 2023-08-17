@@ -75,6 +75,7 @@ cc.Class({
             type:cc.Prefab,
             default:null,
         },
+        bullet_root_path:"Canvas/map_root/bullet_root"
     },
 
     _set_spf(node,state_){//节点 状态
@@ -138,7 +139,8 @@ cc.Class({
         
          //生成预制体子弹
          let node=cc.instantiate(this.bullet);
-         let bullet_root=this.node.getChildByName("bullet_root");
+         let bullet_root=cc.find(this.bullet_root_path);
+         
          bullet_root.addChild(node);
 
         switch (this._play_cur) {
@@ -190,6 +192,8 @@ cc.Class({
         this.play_time=0;
 
         this.set_arrow_grade(state.down);
+
+        // cc.log("!!!!!!");
     },
 
     start () {

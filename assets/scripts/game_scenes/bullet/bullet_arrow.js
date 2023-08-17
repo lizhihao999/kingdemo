@@ -37,6 +37,7 @@ cc.Class({
             default:null,
         },
         speed:200,
+        attack:10,
 
     },
 
