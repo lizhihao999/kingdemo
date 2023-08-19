@@ -94,7 +94,7 @@ cc.Class({
         frame_anim.sprite_frames=connon_tower_.anim;
         frame_anim.durtion=connon_tower_.duration;
 
-         //获取开始 目标坐标
+        //获取开始 目标坐标
         let start_pos=cc.v2(4,24);
         let start_wpos=this.node.convertToWorldSpaceAR(start_pos);//炮塔节点坐标系
         //目标坐标 随机 圆

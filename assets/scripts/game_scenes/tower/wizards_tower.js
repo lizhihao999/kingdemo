@@ -53,7 +53,13 @@ cc.Class({
             type:wizards_,
             default:[],
         },
+        bullet:{
+            type:cc.Prefab,
+            default:null,
+        },
         level:1,
+        bullet_root_path:"Canvas/map_root/bullet_root",
+
         
 
     },
@@ -76,11 +82,11 @@ cc.Class({
         if(state_str==="down"){
             let hero_downs=await this.wizards[level-1].hero_down;
             hero_sp.spriteFrame=hero_downs[0];
-            cc.log("herosp", hero_sp.spriteFrame);
+           
         }else if(state_str==="up"){
             let hero_ups=await this.wizards[level-1].hero_up;
             hero_sp.spriteFrame=hero_ups[0];
-            cc.log("herosp", hero_sp.spriteFrame);
+           
         }
        
 
@@ -99,12 +105,27 @@ cc.Class({
 
 
     },
-    async play_hero(level,state_str){//播放法师的动画   state_str:"down" "up"
+    async hero_shoot_at(level,dst_wpos){//播放法师的动画   state_str:"down" "up"
+       
         this.set_hero_pos(level);
         let frame_anim= this.hero.getComponent("frame_anim");
         if(!frame_anim){
             frame_anim=this.hero.addComponent("frame_anim");
         }
+
+        //开始坐标
+        let start_wpos=this.node.convertToWorldSpaceAR(cc.v2(0,0));
+
+        //目标坐标 随机 圆
+        let r=60;
+        let angles=Math.random()*Math.PI*2;
+        let offset=cc.v2(Math.cos(angles)*r,Math.sin(angles)*r);
+        dst_wpos=cc.v2(start_wpos.x,start_wpos.y);
+        dst_wpos.x+=offset.x;//测试坐标
+        dst_wpos.y+=offset.y;
+       
+        let state_str=(start_wpos.y>dst_wpos.y)?"down":"up";
+        
         if(state_str==="down"){
             let hero_downs=await this.wizards[level-1].hero_down;
             frame_anim.sprite_frames=hero_downs;
@@ -112,14 +133,19 @@ cc.Class({
             let hero_ups=await this.wizards[level-1].hero_up;
             frame_anim.sprite_frames=hero_ups;
         }
+        frame_anim.set_frame_events(()=>{//发射子弹 第5帧
+            this._bullet_shoot_at(dst_wpos,state_str);
+        },5)
         frame_anim.durtion=this.wizards[level-1].hero_dur;
-        frame_anim.play_loop();
+        frame_anim.play_once(()=>{
+            this.set_hero_idle(this.level,state_str);
+        });
 
 
     },
     loding_asset(){//加载资源
         //初始化wizards
-        for(let i=0;i<4;i++){
+       for(let i=0;i<4;i++){
             this.wizards[i]=new wizards_();
        }
        //加载 文件资源
@@ -155,24 +181,53 @@ cc.Class({
         this.hero.setPosition(cgf_pos[level-1]);
 
     },
+
+    _bullet_shoot_at(dst_wpos,state_str){//发射子弹
+        let bullet_root=cc.find(this.bullet_root_path);
+        let node=cc.instantiate(this.bullet);
+        bullet_root.addChild(node);
+        let bullet_com=node.getComponent("bullet_wizards");
+        let start_pos=cc.v2(0,0);
+        if(state_str==="down"){
+            start_pos=cc.v2(-5,17);
+        }else if(state_str==="up"){
+            start_pos=cc.v2(9,17);
+        }
+        
+        let start_wpos=this.node.convertToWorldSpaceAR(start_pos);
+
+        bullet_com.shoot_at(start_wpos,dst_wpos);
+        
+
+
+    },
    
     onLoad () {
-        this.level=4;
+        this.time=0;
+        this.level=2;
         this.tower=this.node.getChildByName("tower");//法师塔
         this.hero=this.node.getChildByName("hero");//
         this.loding_asset();
-        this.set_hero_idle(this.level,"up");
-        this.play_hero(this.level,"up");
         this.set_tower_idle(this.level);
         this.play_tower(this.level);
-        cc.log(this.wizards);
+        
 
 
     },
 
     start () {
+        
+
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        this.time+=dt;
+        if(this.time<1){
+            return;
+        }
+        this.time=0;
+        let dst_wpos=cc.v2(0,0);
+        this.hero_shoot_at(this.level,dst_wpos);
+    },
 });
