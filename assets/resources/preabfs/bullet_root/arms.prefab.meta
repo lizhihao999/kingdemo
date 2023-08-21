@@ -3,7 +3,7 @@
   "uuid": "cb49f18a-9a6d-4dd7-b6f5-700686919e3d",
   "importer": "prefab",
   "optimizationPolicy": "MULTI_INSTANCE",
-  "asyncLoadAssets": false,
+  "asyncLoadAssets": true,
   "readonly": false,
   "subMetas": {}
 }

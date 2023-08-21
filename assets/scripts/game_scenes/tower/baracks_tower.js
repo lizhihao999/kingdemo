@@ -82,7 +82,7 @@ cc.Class({
         bullet_root.addChild(node);
         let arms_com=node.getComponent("arms");
         arms_com.set_level(this.level);
-
+        
         let start_wpos=this.node.convertToWorldSpaceAR(cc.v2(0,0));
         let start_pos=node.parent.convertToNodeSpaceAR(start_wpos);
         node.setPosition(start_pos);
