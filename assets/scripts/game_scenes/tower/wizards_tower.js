@@ -197,6 +197,8 @@ cc.Class({
         let start_wpos=this.node.convertToWorldSpaceAR(start_pos);
 
         bullet_com.shoot_at(start_wpos,dst_wpos);
+
+        let a=10;
         
 
 

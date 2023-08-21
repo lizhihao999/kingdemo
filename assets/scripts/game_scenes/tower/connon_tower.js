@@ -108,7 +108,7 @@ cc.Class({
         if(this.grade===4){
             frame_anim.set_frame_events(()=>{
                 this._bullet_shoot_at(start_wpos,dst_wpos,this.connon_tower[this.grade-1].shell);
-                cc.log("发射炮弹1号");
+               
             },cgf[this.grade-1].shoot1);
 
             frame_anim.set_frame_events(()=>{
@@ -117,19 +117,19 @@ cc.Class({
                 let start_wpos=this.node.convertToWorldSpaceAR(start_pos);//炮塔节点坐标系
 
                 this._bullet_shoot_at(start_wpos,dst_wpos,this.bullet_4_2);
-                cc.log("发射炮弹2号");
+                
             },cgf[this.grade-1].shoot2);
 
         }else{
             frame_anim.set_frame_events(()=>{
                 this._bullet_shoot_at(dst_wpos,this.connon_tower[this.grade-1].shell);
-                cc.log("发射炮弹");
+                
             },cgf[this.grade-1].shoot);
            
             frame_anim.set_frame_events(()=>{
                
                 this._shell_loading();
-                cc.log("装载炮弹");
+                
             },cgf[this.grade-1].delay);
         }
 

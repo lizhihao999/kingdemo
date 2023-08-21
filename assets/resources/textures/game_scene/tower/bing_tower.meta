@@ -1,0 +1,13 @@
+{
+  "ver": "1.1.3",
+  "uuid": "dce63aa5-781f-4749-b5d9-6849246f1b48",
+  "importer": "folder",
+  "isBundle": true,
+  "bundleName": "bing_tower",
+  "priority": 1,
+  "compressionType": {},
+  "optimizeHotUpdate": {},
+  "inlineSpriteFrames": {},
+  "isRemoteBundle": {},
+  "subMetas": {}
+}

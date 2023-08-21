@@ -72,8 +72,8 @@ cc.Class({
     },
     play_loop(end_func){//循环播放一些参数的状态
         if (this.sprite_frames.length <= 0) {
-            cc.log(this.sprite_frames);
-            cc.log("帧动画资源为空");
+            cc.log("帧动画资源为空:",this.sprite_frames);
+            // cc.log();
             return;
         }
         this.is_playing=true;//正在播放

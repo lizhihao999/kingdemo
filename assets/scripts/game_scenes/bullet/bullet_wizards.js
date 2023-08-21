@@ -37,7 +37,7 @@ cc.Class({
 
     onLoad () {
         this.bomb_anim=utils.initDirload("wizards_tower","bomb",cc.SpriteFrame);
-        cc.log("bomb",this.bomb_anim);
+    
         this.bullet=this.node.getChildByName("bullet");
         this.bomb=this.node.getChildByName("bomb");
 
@@ -61,7 +61,9 @@ cc.Class({
         .then(moveto)
         .call(()=>{
             this.play_bomb(()=>{
+                // this.node.destroy();
                 this.node.removeFromParent();
+                // cc.assetManager.releaseAsset(this.bomb_anim);
             });
         })
         .start()
@@ -70,7 +72,7 @@ cc.Class({
 
 
     },
-    async play_bomb(){
+    async play_bomb(endfuc){
         let frame_anim= this.bomb.getComponent("frame_anim");
         if(!frame_anim){
             frame_anim=this.bomb.addComponent("frame_anim");
@@ -83,9 +85,11 @@ cc.Class({
         let bomb_anim=await this.bomb_anim;
         frame_anim.sprite_frames=bomb_anim;
         frame_anim.durtion=this.bomb_dur;
-        frame_anim.play_once();
+        frame_anim.play_once(endfuc);
 
     },
+
+    
 
     start () {
 
