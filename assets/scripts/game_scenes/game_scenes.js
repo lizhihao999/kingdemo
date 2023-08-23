@@ -32,7 +32,7 @@ cc.Class({
 
     onLoad () {
         this.set_interface=this.node.getChildByName("gui_root").getChildByName("set_interface");
-        cc.log(this.set_interface);
+        this.bullet_root=cc.find("Canvas/bullet_root");
         this.pause_interface=this.node.getChildByName("gui_root").getChildByName("pause_interface");
         this.level_init();
         
@@ -84,9 +84,15 @@ cc.Class({
     pause_interface_btn_continue(){
         this.pause_interface.active=false;
         cc.log("继续游戏");
+    },
+
+
+
+    update (dt) {
+        let children = this.bullet_root.children;
+        children.sort((a,b)=>{
+            return b.y-a.y;
+        })
     }
-
-
-
-    // update (dt) {},
+      
 });

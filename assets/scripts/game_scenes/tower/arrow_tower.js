@@ -75,7 +75,7 @@ cc.Class({
             type:cc.Prefab,
             default:null,
         },
-        bullet_root_path:"Canvas/map_root/bullet_root"
+        bullet_root_path:"Canvas/bullet_root"
     },
 
     _set_spf(node,state_){//节点 状态

@@ -58,7 +58,7 @@ cc.Class({
             default:null,
         },
         level:1,
-        bullet_root_path:"Canvas/map_root/bullet_root",
+        bullet_root_path:"Canvas/bullet_root",
 
         
 
