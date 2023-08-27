@@ -34,6 +34,29 @@ cc.Class({
        bullet_root_path:"Canvas/bullet_root",
     },
 
+    init(level,pos){//初始化弓箭塔
+        this.level=level;
+        let wpos=this.node.parent.convertToWorldSpaceAR(pos);
+        let _pos=this.node.parent.convertToNodeSpaceAR(wpos);
+        this.node.setPosition(_pos);
+    },
+
+    upgrade(){
+        if(this.level>4){
+            return;
+        }
+        this.level++;
+        this._set_tower_idle();
+
+    },
+
+    async _set_tower_idle(){//塔换皮
+        let sp=this.tower.getComponent(cc.Sprite);
+        let anims=await this.barracks[this.level-1].anim;
+        sp.spriteFrame=anims[0];
+
+    },
+
     // LIFE-CYCLE CALLBACKS:
     init_asset(){//加载资源
         for(let i=0;i<4;i++){

@@ -64,6 +64,19 @@ cc.Class({
 
     },
 
+    init(level,pos){//初始化弓箭塔
+        this.level=level;
+        let wpos=this.node.parent.convertToWorldSpaceAR(pos);
+        let _pos=this.node.parent.convertToNodeSpaceAR(wpos);
+        this.node.setPosition(_pos);
+    },
+    upgrade(){
+        if(this.level>4){
+            return;
+        }
+        this.level++;
+    },
+
     // LIFE-CYCLE CALLBACKS:
 
    

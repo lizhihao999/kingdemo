@@ -81,6 +81,18 @@ cc.Class({
     bullet_root_path:"Canvas/bullet_root",
 
     },
+    init(level,pos){//初始化弓箭塔
+        this.grade=level;
+        let wpos=this.node.parent.convertToWorldSpaceAR(pos);
+        let _pos=this.node.parent.convertToNodeSpaceAR(wpos);
+        this.node.setPosition(_pos);
+    },
+    upgrade(){
+        if(this.grade>4){
+            return;
+        }
+        this.grade++;
+    },
 
     // LIFE-CYCLE CALLBACKS:
     shoot_at(dst_wpos){
@@ -122,7 +134,7 @@ cc.Class({
 
         }else{
             frame_anim.set_frame_events(()=>{
-                this._bullet_shoot_at(dst_wpos,this.connon_tower[this.grade-1].shell);
+                this._bullet_shoot_at(start_wpos,dst_wpos,this.connon_tower[this.grade-1].shell);
                 
             },cgf[this.grade-1].shoot);
            
@@ -218,7 +230,7 @@ cc.Class({
         this.anim=this.node.getChildByName("anim");
        
         this.shell_load.scale=0;
-        this.grade=4;
+        // this.grade=4;
         this.shoot_tiem=0;//发射时间
         
     },

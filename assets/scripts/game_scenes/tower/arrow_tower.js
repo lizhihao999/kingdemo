@@ -77,6 +77,27 @@ cc.Class({
         },
         bullet_root_path:"Canvas/bullet_root"
     },
+    init(level,pos){//初始化弓箭塔
+        this.arrow_grade=level;
+        let wpos=this.node.parent.convertToWorldSpaceAR(pos);
+        let _pos=this.node.parent.convertToNodeSpaceAR(wpos);
+        this.node.setPosition(_pos);
+        this.set_arrow_grade(state.down);
+        // this.is_shoot=true;
+    },
+
+    upgrade(){
+        if(this.arrow_grade>4){
+            return;
+        }
+        this.arrow_grade++;
+        this.set_arrow_grade(state.down);
+
+    },
+
+    
+
+
 
     _set_spf(node,state_){//节点 状态
         let sp=node.getComponent(cc.Sprite);
@@ -187,13 +208,14 @@ cc.Class({
         this.lsh=this.node.getChildByName("lsh");
         this.rsh=this.node.getChildByName("rsh");
 
-        this.arrow_grade=4;
+        // this.arrow_grade=4;
         this._play_cur=play_cur.lsh;
         this.play_time=0;
+        this.is_shoot=false;
+       
 
-        this.set_arrow_grade(state.down);
+        
 
-        // cc.log("!!!!!!");
     },
 
     start () {
@@ -201,6 +223,9 @@ cc.Class({
     },
 
     update (dt) {
+        // if(!this.is_shoot){
+        //     return;
+        // }
         this.play_time+=dt;
         if(this.play_time<1){
             return;

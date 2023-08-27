@@ -34,7 +34,15 @@ let State=cc.Enum({
     walk:3,
     end_walk:4,
 });
-
+let Type_monster=cc.Enum({
+    actor0:0,
+    actor1:1,
+    actor2:2,
+    actor3:3,
+    actor4:4,
+    actor5:5,
+    actor6:6,
+})
 let Dirention=cc.Enum({
     left:0,
     right:1,
@@ -42,30 +50,83 @@ let Dirention=cc.Enum({
     down:3,
 
 })
+
+let cgf={
+    0:{
+        walk:{
+            left:{start:0,end:5},
+            up:{start:6,end:18},
+            down:{start:19,end:32}
+        }
+    },
+    1:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:23},
+            down:{start:24,end:35}
+        }
+    },
+    2:{
+        walk:{
+            left:{start:0,end:7},
+            up:{start:8,end:20},
+            down:{start:21,end:32}
+        }
+    },
+    3:{
+        walk:{
+            left:{start:0,end:16},
+            up:{start:17,end:29},
+            down:{start:30,end:42}
+        }
+    },
+    4:{
+        walk:{
+            left:{start:0,end:12},
+            up:{start:13,end:26},
+            down:{start:27,end:39}
+        }
+    },
+    5:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:23},
+            down:{start:24,end:36}
+        }
+    },
+    6:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:24},
+            down:{start:25,end:36}
+        }
+    },
+};
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        asset:{
-            type:actor_0_asset,
-            default:[],
-        },
+        
        speed:200,
        state:{
             type:State,
             default:State.walk,
         },
+        Type_monster:{
+            type:Type_monster,
+            default:Type_monster.actor0
+        }
     },
-
     async loding_asset(){//加载资源
         //初始化wizards
        for(let i=0;i<1;i++){
             this.asset[i]=new actor_0_asset();
        }
-       this.asset[0].attack=utils.initDirload("actor0","attack",cc.SpriteFrame);
-       this.asset[0].dead=utils.initDirload("actor0","dead",cc.SpriteFrame);
-       this.asset[0].walk=await utils.initDirload("actor0","walk",cc.SpriteFrame);
-       cc.log("资源加载完成");
+       this.asset[0].attack=utils.initDirload("monster",`actor${this.Type_monster}/attack`,cc.SpriteFrame);
+       this.asset[0].dead=utils.initDirload("monster",`actor${this.Type_monster}/dead`,cc.SpriteFrame);
+       this.asset[0].walk=await utils.initDirload("monster",`actor${this.Type_monster}/walk`,cc.SpriteFrame);
+       cc.log(`资源加载完成--actor_${this.Type_monster}`);
+    //    cc.log(Type_monster.actor0);
 
 
     
@@ -75,6 +136,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.asset={
+            type:actor_0_asset,
+            default:[],
+        },
+        cc.log("this.asset",this.asset);
         this.sp=this.node.getChildByName("sp");
         this.loding_asset();
         this._vx=0;
@@ -107,25 +173,25 @@ cc.Class({
         frame_anim.play_loop();
     },
     async play_walk(direction){
-        let cgf={left:{start:0,end:5},up:{start:6,end:18},down:{start:19,end:32}}
+        
         let walk=await this.asset[0].walk;
         let walk_dir=[];
         if(direction===Dirention.left){
-            for(let i=cgf.left.start;i<cgf.left.end;i++){
+            for(let i=cgf[this.Type_monster].walk.left.start;i<cgf[this.Type_monster].walk.left.end;i++){
                 walk_dir.push(walk[i]);
             }
              this.node.scaleX=-1;
         }else if(direction===Dirention.right){
-            for(let i=cgf.left.start;i<cgf.left.end;i++){
+            for(let i=cgf[this.Type_monster].walk.left.start;i<cgf[this.Type_monster].walk.left.end;i++){
                 walk_dir.push(walk[i]);
             }
             this.node.scaleX=1;
         }else if(direction===Dirention.up){
-            for(let i=cgf.up.start;i<cgf.up.end;i++){
+            for(let i=cgf[this.Type_monster].walk.up.start;i<cgf[this.Type_monster].walk.up.end;i++){
                 walk_dir.push(walk[i]);
             }
         }else if(direction===Dirention.down){
-            for(let i=cgf.down.start;i<cgf.down.end;i++){
+            for(let i=cgf[this.Type_monster].walk.down.start;i<cgf[this.Type_monster].walk.down.end;i++){
                 walk_dir.push(walk[i]);
             }
         }
