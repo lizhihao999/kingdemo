@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 let utils=require("utils");
+let event_manager=require("event_manager");
+let monster_manager=require("monster_manager");
 let actor_0_asset=cc.Class({
     name:"actor_0_asset",
 
@@ -34,15 +36,7 @@ let State=cc.Enum({
     walk:3,
     end_walk:4,
 });
-let Type_monster=cc.Enum({
-    actor0:0,
-    actor1:1,
-    actor2:2,
-    actor3:3,
-    actor4:4,
-    actor5:5,
-    actor6:6,
-})
+
 let Dirention=cc.Enum({
     left:0,
     right:1,
@@ -50,58 +44,8 @@ let Dirention=cc.Enum({
     down:3,
 
 })
-
-let cgf={
-    0:{
-        walk:{
-            left:{start:0,end:5},
-            up:{start:6,end:18},
-            down:{start:19,end:32}
-        }
-    },
-    1:{
-        walk:{
-            left:{start:0,end:11},
-            up:{start:12,end:23},
-            down:{start:24,end:35}
-        }
-    },
-    2:{
-        walk:{
-            left:{start:0,end:7},
-            up:{start:8,end:20},
-            down:{start:21,end:32}
-        }
-    },
-    3:{
-        walk:{
-            left:{start:0,end:16},
-            up:{start:17,end:29},
-            down:{start:30,end:42}
-        }
-    },
-    4:{
-        walk:{
-            left:{start:0,end:12},
-            up:{start:13,end:26},
-            down:{start:27,end:39}
-        }
-    },
-    5:{
-        walk:{
-            left:{start:0,end:11},
-            up:{start:12,end:23},
-            down:{start:24,end:36}
-        }
-    },
-    6:{
-        walk:{
-            left:{start:0,end:11},
-            up:{start:12,end:24},
-            down:{start:25,end:36}
-        }
-    },
-};
+let Type_monster=monster_manager.Type_monster;
+let cgf=monster_manager.asset_cgf;
 cc.Class({
     extends: cc.Component,
 
@@ -117,6 +61,37 @@ cc.Class({
             default:Type_monster.actor0
         }
     },
+
+    async init(type,parme,path){
+
+        this.Type_monster=type;
+        
+        
+        //加载怪物资源 并且换皮
+        this.loding_asset();
+        let walk=await this.asset[0].walk;
+        cc.log("资源加载完成--actor"+this.Type_monster);
+        this._set_idle();
+
+        //初始化怪物参数 速度 攻击 血量
+        this.speed=parme.speed;
+
+        //初始化怪物位置
+        let map_root_com=cc.find("Canvas/map_root").getComponent("map_root");
+        this.path_data=map_root_com.get_path_data()[path];//第一条路
+        this.start_index=0;
+        let now_wpos=this.node.parent.convertToWorldSpaceAR(this.path_data[0]);
+        let now_pos=this.node.parent.convertToNodeSpaceAR(now_wpos);
+        this.node.setPosition(now_pos);
+
+        //调整血条位置
+        //修改节点大小
+        this.sp.height=walk[0]._rect.height;
+        this.sp.width=walk[0]._rect.width;
+
+        let blood=this.node.getChildByName("blood_bg");
+        blood.y=this.sp.y+this.sp.height+5;
+    },
     async loding_asset(){//加载资源
         //初始化wizards
        for(let i=0;i<1;i++){
@@ -124,10 +99,8 @@ cc.Class({
        }
        this.asset[0].attack=utils.initDirload("monster",`actor${this.Type_monster}/attack`,cc.SpriteFrame);
        this.asset[0].dead=utils.initDirload("monster",`actor${this.Type_monster}/dead`,cc.SpriteFrame);
-       this.asset[0].walk=await utils.initDirload("monster",`actor${this.Type_monster}/walk`,cc.SpriteFrame);
-       cc.log(`资源加载完成--actor_${this.Type_monster}`);
-    //    cc.log(Type_monster.actor0);
-
+       this.asset[0].walk=utils.initDirload("monster",`actor${this.Type_monster}/walk`,cc.SpriteFrame);
+   
 
     
     },
@@ -140,12 +113,12 @@ cc.Class({
             type:actor_0_asset,
             default:[],
         },
-        cc.log("this.asset",this.asset);
         this.sp=this.node.getChildByName("sp");
-        this.loding_asset();
         this._vx=0;
         this._vy=0;
         this.walk_time=0;
+        this.path_data=null;
+        this.start_index=0;
 
       
 
@@ -268,6 +241,9 @@ cc.Class({
             if(this.start_index>=this.path_data.length-1){//61
                 this.state=State.end_walk;
                 // this._set_idle();//test set_idle
+                let eventmanger=event_manager.get_instance();
+                eventmanger.emit("arrive",1);
+
             }else{
                 this.walk_to_next();//60 max
             }
@@ -287,15 +263,7 @@ cc.Class({
 
     },
     start () {
-        let map_root_com=cc.find("Canvas/map_root").getComponent("map_root");
-        this.path_data=map_root_com.get_path_data()[0];//第一条路
-
        
-
-        this.start_index=0;
-        let now_wpos=this.node.parent.convertToWorldSpaceAR(this.path_data[0]);
-        let now_pos=this.node.parent.convertToNodeSpaceAR(now_wpos);
-        this.node.setPosition(now_pos);
     },
 
     update (dt) {

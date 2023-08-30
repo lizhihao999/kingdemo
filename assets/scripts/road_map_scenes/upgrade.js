@@ -4,7 +4,8 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-let ugame =require("ugame");
+let ugame =require("ugame_s");
+// let ugame=null;
 cc.Class({
     extends: cc.Component,
 

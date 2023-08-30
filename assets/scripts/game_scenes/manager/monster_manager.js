@@ -1,0 +1,63 @@
+let Type_monster=cc.Enum({
+    actor0:0,
+    actor1:1,
+    actor2:2,
+    actor3:3,
+    actor4:4,
+    actor5:5,
+    actor6:6,
+})
+
+let asset_cgf={
+    0:{
+        walk:{
+            left:{start:0,end:5},
+            up:{start:6,end:18},
+            down:{start:19,end:32}
+        }
+    },
+    1:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:23},
+            down:{start:24,end:35}
+        }
+    },
+    2:{
+        walk:{
+            left:{start:0,end:7},
+            up:{start:8,end:20},
+            down:{start:21,end:32}
+        }
+    },
+    3:{
+        walk:{
+            left:{start:0,end:16},
+            up:{start:17,end:29},
+            down:{start:30,end:42}
+        }
+    },
+    4:{
+        walk:{
+            left:{start:0,end:12},
+            up:{start:13,end:26},
+            down:{start:27,end:39}
+        }
+    },
+    5:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:23},
+            down:{start:24,end:36}
+        }
+    },
+    6:{
+        walk:{
+            left:{start:0,end:11},
+            up:{start:12,end:24},
+            down:{start:25,end:36}
+        }
+    },
+};
+
+module.exports={Type_monster,asset_cgf};

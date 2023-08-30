@@ -4,7 +4,8 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-let ugame =require("ugame");
+let ugame =require("ugame_s");
+// let ugame=null;
 let sound_manager=require("sound_manager");
 cc.Class({
     extends: cc.Component,
@@ -46,7 +47,8 @@ cc.Class({
         }, this);
         this.lab=cc.find("Canvas/score_back/lab").getComponent(cc.Label);
         // cc.log("lab",this.lab);
-        let num=ugame.get_star_num();
+        // let num=ugame.get_star_num();
+        let num=17
         // cc.log(num,'dddddd');
         this.lab.string=num+"/"+ugame.user_data[ugame.current_user].start_total;
     },

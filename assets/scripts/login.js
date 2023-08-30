@@ -6,7 +6,8 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 // var loding_door=require("loding_door");
 let sound_manager=require("sound_manager");
-let ugame =require("ugame");
+let ugame =require("ugame_s");
+// let ugame=null;
 
 cc.Class({
     extends: cc.Component,

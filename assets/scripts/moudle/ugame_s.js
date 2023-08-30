@@ -28,12 +28,12 @@ let ugame={
     },
 
     set_level_num(index){
-        cc.log(ugame.level_config[index]);
+        cc.log(this.level_config[index]);
     },
     get_star_num(){
         let num=0;
-        for(let i=0;i<ugame.user_data[ugame.current_user].lever_info_start.length;i++){
-            num+=ugame.user_data[ugame.current_user].lever_info_start[i];
+        for(let i=0;i<this.user_data[this.current_user].lever_info_start.length;i++){
+            num+=this.user_data[this.current_user].lever_info_start[i];
         }
         return num;
     },
@@ -55,38 +55,39 @@ let ugame={
         if(user_index<0||user_index>3){
             user_index=0;
         }
-        ugame.current_user=user_index;
+        this.current_user=user_index;
     },
 
 
 
     save_data_local:function(){//保存数据到本地
-        let json_str=JSON.stringify(ugame.user_data);//json-->string
+        let json_str=JSON.stringify(this.user_data);//json-->string
         cc.sys.localStorage.setItem("user_data",json_str);//sav
     },
 
     get_current_cuser:function(){//返回现在的用户数据
-        return ugame.user_data[ugame.current_user];
+        return this.user_data[this.current_user];
     },
 
 }
 
-function read_local_data(){//读取本地数据(读档)
+
+//禁止ugame.数据=掉用ugame.函数(ugame.数据) -->相互引用问题
+let read_local_data=()=>{//读取本地数据(读档)
    
     
     let user_data=cc.sys.localStorage.getItem("user_data");
     if(user_data){
         ugame.user_data = JSON.parse(user_data);//如果有存档 json缓存该存档
-        // ugame.user_data[0].chip=400;//先改后存
-        // ugame.save_data_local();
-        // ugame.user_data[0].lever_info_start=[1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3];
+        // this.user_data[0].chip=400;//先改后存
+        // this.save_data_local();
+        // this.user_data[0].lever_info_start=[1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3];
        
         ugame.user_data[0].new_level=2;
         ugame.user_data[1].new_level=1;
         ugame.user_data[2].new_level=1;
-        ugame.user_data[0].start_num=ugame.get_star_num();
+        // ugame.user_data[0].start_num=35;
         ugame.user_data[0].skill_info=[1,2,3,4,5,0],
-        cc.log("**************",ugame.start_num);
         ugame.save_data_local();
         cc.log("read_data");
         
@@ -135,7 +136,7 @@ function read_local_data(){//读取本地数据(读档)
 }
 
 read_local_data();
-// cc.log("***",ugame.user_data[0]);
+cc.log("***",ugame.user_data[0]);
 
 
 module.exports=ugame;
